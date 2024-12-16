@@ -8,14 +8,13 @@ import java.util.Optional;
 @Component("auditAwareImpl")
 public class AuditAwareImpl implements AuditorAware<String> {
 
-
     /**
      * Returns the current auditor, which is the identifier of the currently authenticated user.
      *
-     * @return An {@link Optional} of the auditor identifier, which is the string "ACCOUNTS_MS".
+     * @return An {@link Optional} of the auditor identifier, which is the string "LOANS_MS".
      */
     @Override
     public Optional<String> getCurrentAuditor() {
-        return Optional.of("ACCOUNTS_MS");
+        return Optional.of("LOANS_MS");
     }
 }
