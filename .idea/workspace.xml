@@ -6,8 +6,35 @@
   <component name="ChangeListManager">
     <list default="true" id="e866c9d1-2bcf-4fe8-b02c-66e12c7c960e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/Dockerfile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cards/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/cards/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/test/java/com/eazybytes/cards/CardsApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards/src/test/java/com/microservice/cards/CardsApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/loans/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/loans/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/test/java/com/eazybytes/loans/LoansApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/loans/src/test/java/com/microservice/loans/LoansApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/desktop.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/LoansApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/audit/AuditAwareImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/constants/LoansConstants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/controller/LoansController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/dto/ErrorResponseDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/dto/LoansDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/dto/ResponseDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/entity/BaseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/entity/Loans.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/exception/GlobalExceptionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/exception/LoanAlreadyExistsException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/exception/ResourceNotFoundException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/mapper/LoansMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/repository/LoansRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/service/ILoansService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/com/microservice/loans/service/impl/LoansServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/desktop.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/classes/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/target/generated-sources/annotations/desktop.ini" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +137,8 @@
       <updated>1734343322574</updated>
       <workItem from="1734343324076" duration="2964000" />
       <workItem from="1734962544084" duration="8768000" />
-      <workItem from="1734971336165" duration="1944000" />
+      <workItem from="1734971336165" duration="3460000" />
+      <workItem from="1735023812164" duration="9459000" />
     </task>
     <servers />
   </component>
