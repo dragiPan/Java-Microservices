@@ -1,0 +1,13 @@
+# Ignore build artifacts
+target/
+jib-cache/
+.mvn/
+
+# Ignore IDE-specific files
+*.iml
+.idea/
+*.classpath
+*.project
+
+# Logs
+*.log
