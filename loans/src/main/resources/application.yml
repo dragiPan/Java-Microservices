@@ -1,6 +1,10 @@
 server:
   port: 8090
 spring:
+  application:
+    name: "loans"
+  profiles:
+    active: "qa"
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -15,21 +19,4 @@ spring:
       ddl-auto: update
     show-sql: true
   config:
-    import:
-      - "application_qa.yml"
-      - "application_prod.yml"
-  profiles:
-    active:
-      - "qa"
-
-build:
-  version: "3.0.5"
-
-contacts:
-  message: "Welcome to Bank loans Microservice"
-  contactDetails:
-    name: "Dragi Pantović - Developer"
-    email: "dtm.pantovic@gmail.com"
-  onCallSupport:
-    - (+91) 9872109455
-    - (+91) 9884567822
+    import: "optional:configserver:http://localhost:8071"

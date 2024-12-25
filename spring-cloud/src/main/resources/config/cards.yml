@@ -1,0 +1,11 @@
+build:
+  version: "2.1.4"
+
+contacts:
+  message: "Welcome to Bank cards Microservice"
+  contactDetails:
+    name: "Dragi Pantović - Developer"
+    email: "dtm.pantovic@gmail.com"
+  onCallSupport:
+    - (+91) 9872109455
+    - (+91) 9884567822

@@ -1,0 +1,11 @@
+build:
+  version: "3.0.5"
+
+accounts:
+  message: "Welcome to Bank accounts Microservice"
+  contactDetails:
+    name: "Dragi Pantović - Developer"
+    email: "dtm.pantovic@gmail.com"
+  onCallSupport:
+    - (+91) 9872109455
+    - (+91) 9884567822
