@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  version: "2.0.1"
+
+contacts:
+  message: "Welcome to Bank loans Microservice QA"
+  contactDetails:
+    name: "Milan Stankovic - QA Lead"
+    email: "mila.stankovic1313@gmail.com"
+  onCallSupport:
+    - (+181) 4361242364
+    - (+181) 3267885323

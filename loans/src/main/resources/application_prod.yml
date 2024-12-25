@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+build:
+  version: "1.0.0"
+
+contacts:
+  message: "Welcome to Bank loans Microservice Production"
+  contactDetails:
+    name: "Boban Rajovic - Product Owner"
+    email: "BobanovRaj-ovic@gmail.com"
+  onCallSupport:
+    - (+77) 9189284759
+    - (+77) 8928291273

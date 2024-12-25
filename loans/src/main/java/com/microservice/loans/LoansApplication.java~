@@ -1,7 +1,6 @@
 package com.microservice.loans;
 
 import com.microservice.loans.dto.BuildInfoDto;
-import com.microservice.loans.dto.ContactInfoDto;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
