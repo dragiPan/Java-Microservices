@@ -8,7 +8,7 @@ spring:
       server:
         git:
           uri: "https://github.com/dragiPan/Spring-Config-Files"
-          default-label: main
+          bra
 
 server:
   port: 8071
