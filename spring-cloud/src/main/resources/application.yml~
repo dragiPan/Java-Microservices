@@ -7,8 +7,12 @@ spring:
     config:
       server:
         git:
-          uri: "https://github.com/dragiPan/Spring-Config-Files"
-          bra
+          uri: "https://github.com/dragiPan/Spring-Config-Files.git"
+          default-label: main
+
+logging:
+  level:
+    org.springframework.cloud.config: DEBUG
 
 server:
   port: 8071
