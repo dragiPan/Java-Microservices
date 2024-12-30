@@ -43,6 +43,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Spring AMQP -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
+
         <!-- Spring Boot Devtools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,10 +57,10 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- H2 Database -->
+        <!-- MYSQL Database -->
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
 
