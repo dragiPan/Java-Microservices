@@ -88,7 +88,6 @@ services:
       file: common-config.yml
       service: microservice-configserver-config
 
-
   accounts:
     image: "dragipan/accounts:1.0.0"
     container_name: accounts-ms
@@ -149,3 +148,5 @@ services:
 networks:
   microservice:
     driver: "bridge"
+
+

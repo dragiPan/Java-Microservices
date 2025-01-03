@@ -2,7 +2,7 @@ spring:
   application:
     name: "eurekaserver"
   config:
-    import: "optional:configserver:http://localhost:8071"
+    import: "optional:configserver:http://localhost:8071/"
 
 management:
   endpoints:
@@ -18,3 +18,8 @@ management:
     health:
       probes:
         enabled: true
+
+logging:
+  level:
+    com.netflix.eureka: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
