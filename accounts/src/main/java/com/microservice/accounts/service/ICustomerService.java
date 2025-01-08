@@ -2,6 +2,7 @@ package com.microservice.accounts.service;
 
 
 import com.microservice.accounts.dto.CustomerDetailsDto;
+import com.microservice.accounts.exception.ResourceNotFoundException;
 
 public interface ICustomerService {
 
@@ -15,5 +16,5 @@ public interface ICustomerService {
      * @param mobileNumber The mobile number of the customer whose details are to be fetched.
      * @return A {@link CustomerDetailsDto} containing the customer's details.
      */
-    CustomerDetailsDto fetchCustomerDetails(String mobileNumber);
+    CustomerDetailsDto fetchCustomerDetails(String mobileNumber, String correlationId);
 }

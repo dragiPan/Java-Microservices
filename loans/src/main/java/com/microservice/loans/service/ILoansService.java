@@ -1,6 +1,7 @@
 package com.microservice.loans.service;
 
 import com.microservice.loans.dto.LoansDto;
+import com.microservice.loans.exception.ResourceNotFoundException;
 
 public interface ILoansService {
 
@@ -13,9 +14,12 @@ public interface ILoansService {
 
     /**
      * Fetches loan details for the customer associated with the given mobile number.
+     * <p>
+     * This method retrieves the loan information linked to the provided mobile number.
+     * If no loan is found, a {@link ResourceNotFoundException} is thrown.
      *
-     * @param mobileNumber - Input mobile number
-     * @return Loan details based on the given mobile number
+     * @param mobileNumber - Mobile number of the customer whose loan details are to be fetched.
+     * @return A {@link LoansDto} containing the loan details for the specified mobile number.
      */
     LoansDto fetchLoan(String mobileNumber);
 

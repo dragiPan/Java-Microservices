@@ -29,9 +29,9 @@ public class RequestTraceFilter implements GlobalFilter {
             logger.debug("bank-correlation-id found in RequestTraceFilter:{}",
                     filterUtility.getCorrelationId(requestHeaders));
         } else {
-            String correlationID = generateCorraltionId();
-            exchange = filterUtility.setCorrelationId(exchange, correlationID);
-            logger.debug("bank-correlation-id generated in RequestTraceFilter:{}", correlationID);
+            String correlationId = generateCorrelationId();
+            exchange = filterUtility.setCorrelationId(exchange, correlationId);
+            logger.debug("bank-correlation-id generated in RequestTraceFilter:{}", correlationId);
         }
         return chain.filter(exchange);
     }
@@ -40,7 +40,7 @@ public class RequestTraceFilter implements GlobalFilter {
         return requestHeaders.get(FilterUtility.CORRELATION_ID) != null;
     }
 
-    private String generateCorraltionId() {
+    private String generateCorrelationId() {
         return java.util.UUID.randomUUID().toString();
     }
 }

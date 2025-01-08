@@ -1,6 +1,7 @@
 package com.microservice.accounts.service;
 
 import com.microservice.accounts.dto.CustomerDto;
+import com.microservice.accounts.exception.ResourceNotFoundException;
 
 public interface IAccountsService {
 

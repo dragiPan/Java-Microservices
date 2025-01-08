@@ -27,4 +27,8 @@ public class FilterUtility {
                 .request(exchange.getRequest().mutate().header(name, value).build())
                 .build();
     }
+
+    public ServerWebExchange setCorrelationId(ServerWebExchange exchange, String correlationId) {
+        return this.setRequestHeader(exchange, CORRELATION_ID, correlationId);
+    }
 }

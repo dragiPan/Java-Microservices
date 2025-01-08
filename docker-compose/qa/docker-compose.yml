@@ -100,12 +100,12 @@ services:
       retries: 10
       start_period: 10s
     depends_on:
-      accountsdb:
-        condition: service_healthy
-      configserver:
-        condition: service_healthy
-      eurekaserver:
-        condition: service_healthy
+        accountsdb:
+          condition: service_healthy
+        configserver:
+          condition: service_healthy
+        eurekaserver:
+          condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: "accounts"
       SPRING_DATASOURCE_URL: jdbc:mysql://accountsdb:3306/accountsdb
@@ -182,7 +182,7 @@ services:
       service: microservice-gateway-config
 
 networks:
-  qa_microservice:
-    driver: "bridge"
+  microservice:
+    external: true
 
 
