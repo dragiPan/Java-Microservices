@@ -77,7 +77,7 @@ public class LoansController {
             @RequestParam @Pattern(regexp = "\\d{10}", message = "Mobile number must be 10 digits") String mobileNumber,
             @RequestHeader String correlationId) {
         logger.debug("bank-correlation-id found:{}", correlationId);
-        LoansDto loansDto = iLoansService.fetchLoan(mobileNumber, correlationId);
+        LoansDto loansDto = iLoansService.fetchLoan(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(loansDto);
     }
 
@@ -197,6 +197,7 @@ public class LoansController {
     })
     @GetMapping("/contact-info")
     public ResponseEntity<ContactInfoDto> getContactInfo() {
+        
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(contactInfoDto);

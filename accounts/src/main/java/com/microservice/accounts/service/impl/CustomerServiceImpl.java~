@@ -56,7 +56,7 @@ public class CustomerServiceImpl implements ICustomerService {
         if(cardsDtoResponseEntity.getStatusCode().is2xxSuccessful()){
             customerDetailsDto.setCardsDto(cardsDtoResponseEntity.getBody());
         }
-
+        
         return customerDetailsDto;
     }
 }

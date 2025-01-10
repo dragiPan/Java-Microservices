@@ -8,6 +8,9 @@ spring:
       discovery:
         locator:
           lower-case-service-id: true
+      httpclient:
+        connect-timeout: 10000
+        response-timeout: 2000
   rabbitmq:
     host: localhost
     port: 5672
@@ -31,3 +34,23 @@ info:
     name: "gatewayserver"
     description: "Gateway Server for Microservice"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      microservice:
+        gatewayserver: DEBUG
+    resilience4j:
+      circuitbreaker:
+        default: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 10
+        permitted-number-of-calls-in-half-open-state: 2
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10000
