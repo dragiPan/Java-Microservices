@@ -48,6 +48,21 @@ services:
       file: common-config.yml
       service: network-deploy-service
 
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   configserver:
     image: "dragipan/spring-cloud:1.0.0"
     container_name: configserver-ms
@@ -174,6 +189,8 @@ services:
       loans:
         condition: service_healthy
       cards:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: "gatewayserver"

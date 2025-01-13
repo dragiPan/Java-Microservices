@@ -51,14 +51,15 @@ public class GatewayserverApplication {
                 .route("cards-route", path -> path
                         .path("/bank/cards/**")
                         .filters(filter -> filter.rewritePath("/bank/cards/(?<segment>.*)", "/${segment}")
-                                .addResponseHeader("X-Repsonse-Time", LocalDateTime.now().toString()))
+                                .addResponseHeader("X-Repsonse-Time", LocalDateTime.now().toString())
+                                .requestRateLimiter(config -> config.setRateLimiter(redisRateLimiter()).setKeyResolver(userKeyResolver())))
                         .uri("lb://CARDS"))
                 .build();
     }
 
     @Bean
     public Customizer<ReactiveResilience4JCircuitBreakerFactory> defaultCustomizer() {
-        return factory -> factory.configureDefault(id -> new Resilience4JConfigBuilder(id)
+ return factory -> factory.configureDefault(id -> new Resilience4JConfigBuilder(id)
                 .circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
                 .timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(4)).build()).build());
     }
