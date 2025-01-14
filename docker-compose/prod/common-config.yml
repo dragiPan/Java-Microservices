@@ -25,6 +25,9 @@ services:
           memory: 700m
     environment:
       SPRING_RABBITMQ_HOST: "rabbit"
+      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
+      OTEL_METRICS_EXPORTER: none
 
   microservice-configserver-config:
     extends:
@@ -32,6 +35,8 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
+      SPRING_LOKI_URL: "http://loki:3100"
+      SPRING_PROMETHEUS_URL: "http://prometheus:9091"
 
 
   microservice-eureka-config:
@@ -47,3 +52,6 @@ services:
       service: microservice-configserver-config
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eurekaserver:8070/eureka"
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_TIMEOUT: 1000ms

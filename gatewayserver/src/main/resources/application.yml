@@ -10,7 +10,7 @@ spring:
           lower-case-service-id: true
       httpclient:
         connect-timeout: 10000
-        response-timeout: 5000
+        response-timeout: 10000
   rabbitmq:
     host: localhost
     port: 5672
