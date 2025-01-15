@@ -45,6 +45,9 @@ management:
       enabled: true
     livenessstate:
       enabled: true
+  metrics:
+    tags:
+      aplication: ${spring.application.name}
 
 
 eureka:
@@ -87,3 +90,9 @@ resilience4j:
           - java.lang.NullPointerException
         retry-exceptions:
           - java.util.concurrent.TimeoutException
+  ratelimiter:
+    configs:
+      default:
+        timeout-duration: 1000
+        limit-refresh-period: 5000
+        limit-for-period: 1
