@@ -4,14 +4,14 @@ services:
     container_name: tempo
     command: -config.file=/etc/tempo/config.yml
     ports:
-      - "3110:3100"
+      - "3100:3100"
       - "4317:4317"
     volumes:
       - ../observability/tempo/tempo.yml:/etc/tempo/config.yml
     extends:
       file: common-config.yml
       service: network-deploy-service
-
+      
   read:
     image: grafana/loki:3.0.0
     command: "-config.file=/etc/loki/config.yml -target=read"
