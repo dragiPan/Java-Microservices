@@ -1,7 +1,7 @@
 server:
   http_listen_port: 3100
 
-distrubutor:
+distributor:
   receivers:
     otlp:
       protocols:
@@ -15,7 +15,17 @@ ingester:
 
 compactor:
   compaction:
-    compatcion_window: 1h
-    max_comapction_objects: 1_000_000
+    compaction_window: 1h
+    max_compaction_objects: 1_000_000
     block_retention: 1h
-    comacted_block_retention: 10m
+    compacted_block_retention: 10m
+
+storage:
+  trace:
+    backend: s3
+    s3:
+      endpoint: minio:9000
+      access_key: loki
+      secret_key: supersecret
+      bucket: tempo-traces
+      insecure: true
