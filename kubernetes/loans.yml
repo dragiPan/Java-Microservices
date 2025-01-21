@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: loans-deployment
+    labels:
+        app: loans
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: loans
+    template:
+        metadata:
+            labels:
+                app: loans
+        spec:
+            initContainers:
+              - name: wait-for-configserver
+                image: busybox
+                command: [ 'sh', '-c', 'until nc -z configserver 8071; do sleep 5; done' ]
+            containers:
+                - name: loans
+                  image: dragipan/loans:1.0.0
+                  ports:
+                    - containerPort: 8072
+                  env:
+                    - name: SPRING_CONFIG_IMPORT
+                      valueFrom:
+                        configMapKeyRef:
+                            name: microservice-configmap
+                            key: SPRING_CONFIG_IMPORT
+                    -  name: SPRING_APPLICATION_NAME
+                       valueFrom:
+                         configMapKeyRef:
+                           name: microservice-configmap
+                           key: LOANS_APPLICATION_NAME
+                    - name: SPRING_DATASOURCE_URL
+                      value: jdbc:mysql://loansdb:3306/loansdb
+                    - name: SPRING_DATASOURCE_USERNAME
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: SPRING_DATASOURCE_USERNAME
+                    - name: SPRING_DATASOURCE_PASSWORD
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: SPRING_DATASOURCE_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loans
+spec:
+  selector:
+    app: loans
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 8090
+

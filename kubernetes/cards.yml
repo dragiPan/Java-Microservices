@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: cards-deployment
+    labels:
+        app: cards
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: cards
+    template:
+        metadata:
+            labels:
+                app: cards
+        spec:
+            initContainers:
+              - name: wait-for-configserver
+                image: busybox
+                command: [ 'sh', '-c', 'until nc -z configserver 8071; do sleep 5; done' ]
+            containers:
+                - name: cards
+                  image: dragipan/cards:1.0.0
+                  ports:
+                    - containerPort: 8072
+                  env:
+                    - name: SPRING_CONFIG_IMPORT
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: SPRING_CONFIG_IMPORT
+                    - name: SPRING_APPLICATION_NAME
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: CARDS_APPLICATION_NAME
+                    - name: SPRING_DATASOURCE_URL
+                      value: jdbc:mysql://cardsdb:3306/cardsdb
+                    - name: SPRING_DATASOURCE_USERNAME
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: SPRING_DATASOURCE_USERNAME
+                    - name: SPRING_DATASOURCE_PASSWORD
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: SPRING_DATASOURCE_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cards
+spec:
+  selector:
+    app: cards
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090

@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        apps: configserver
+        app: configserver
     spec:
       containers:
         - name: configserver
