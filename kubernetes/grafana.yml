@@ -17,14 +17,21 @@ spec:
       containers:
         - name: grafana
           image: grafana/grafana:11.2.4
+          ports:
+            - containerPort: 3000
           env:
             - name: GF_PATHS_PROVISIONING
               value: /etc/grafana/provisioning
           volumeMounts:
-            - name: grafana-storage
-              mountPath: /var/lib/grafana
+            - name: grafana-datasource
+              mountPath: /etc/grafana/provisioning/datasources
+            - name: grafana-data
+              mountPath: /grafana
       volumes:
-        - name: grafana-storage
+        - name: grafana-datasource
+          configMap:
+            name: grafana-datasource
+        - name: grafana-data
           persistentVolumeClaim:
             claimName: grafana-pvc
 ---
@@ -35,7 +42,7 @@ metadata:
 spec:
   selector:
     app: grafana
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 3000

@@ -24,10 +24,15 @@ spec:
           volumeMounts:
             - name: tempo-config
               mountPath: /etc/tempo
+            - name: tempo-data
+              mountPath: /tempo
       volumes:
         - name: tempo-config
           configMap:
             name: tempo-config
+        - name: tempo-data
+          persistentVolumeClaim:
+            claimName: tempo-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -38,9 +43,12 @@ spec:
     app: tempo
   type: ClusterIP
   ports:
-    - protocol: TCP
+    - name: "http-metrics"
+      protocol: TCP
       port: 3100
       targetPort: 3100
-    - protocol: TCP
+
+    - name: "grpc-metrics"
+      protocol: TCP
       port: 4317
       targetPort: 4317

@@ -14,6 +14,10 @@ spec:
       labels:
         app: eurekaserver
     spec:
+      initContainers:
+        - name: wait-for-configserver
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z configserver 8071; do sleep 5; done' ]
       containers:
         - name: eurekaserver
           image: dragipan/eurekaserver:1.0.0

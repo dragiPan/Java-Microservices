@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki-write-deployment
+  labels:
+    app: loki-write
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki-write
+  template:
+    metadata:
+      labels:
+        app: loki-write
+    spec:
+      initContainers:
+        - name: wait-for-minio
+          image: busybox
+          command: ['sh', '-c', 'until nc -z minio 9000; do sleep 5; done']
+
+      containers:
+        - name: loki-write
+          image: grafana/loki:3.1.0
+          args:
+            - "-config.file=/etc/loki/loki-config.yml"
+            - "-target=write"
+          env:
+            - name: OTEL_SERVICE_NAME
+              value: "write"
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 3100
+            - name: gossip
+              protocol: TCP
+              containerPort: 7946
+            - name: grpc
+              protocol: TCP
+              containerPort: 9095
+          volumeMounts:
+            - name: loki-config
+              mountPath: /etc/loki
+      volumes:
+        - name: loki-config
+          configMap:
+            name: loki-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loki-write
+spec:
+  selector:
+    app: loki-write
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3100
+      targetPort: 3100

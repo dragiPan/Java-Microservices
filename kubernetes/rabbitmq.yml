@@ -1,4 +1,51 @@
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-deployment
+  labels:
+    app: rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:4.0-management
+          ports:
+            - containerPort: 5672
+            - containerPort: 15672
+          env:
+            - name: OTEL_SERVICE_NAME
+              value: "rabbitmq"
+          livenessProbe:
+            exec:
+              command:
+                - rabbitmq-diagnostics
+                - check_port_connectivity
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 10
+          readinessProbe:
+            exec:
+              command:
+                - rabbitmq-diagnostics
+                - check_port_connectivity
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          volumeMounts:
+            - name: rabbitmq-storage
+              mountPath: /var/lib/rabbitmq
+      volumes:
+        - name: rabbitmq-storage
+          persistentVolumeClaim:
+            claimName: rabbitmq-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -9,9 +56,12 @@ spec:
     app: rabbitmq
   type: ClusterIP
   ports:
-    - protocol: TCP
+    - name: "amqp"
+      protocol: TCP
       port: 5672
       targetPort: 5672
-    - protocol: TCP
+
+    - name: "management"
+      protocol: TCP
       port: 15672
       targetPort: 15672

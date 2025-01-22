@@ -24,16 +24,12 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: "root"
           volumeMounts:
-            - name: mysql-storage
-              mountPath: /var/lib/mysql
-  volumeClaimTemplates:
-    - metadata:
-        name: mysql-storage
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 1Gi
+            - name: mysql-data
+              mountPath: /mysql
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: cardsdb-pvc
 ---
 apiVersion: v1
 kind: Service

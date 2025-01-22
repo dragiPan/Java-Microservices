@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      initContainers:
+        - name: wait-for-gateway
+          image: busybox
+          command: ['sh', '-c', 'until nc -z gateway 3100; do sleep 5; done']
+      containers:
+        - name: backend
+          image: grafana/loki:3.1.0
+          args: ["-config.file=/etc/loki/loki-config.yml", "-target=backend", "-legacy-read-mode=false"]
+          ports:
+            - name: http
+              containerPort: 3100
+            - name: gossip
+              containerPort: 7946
+          env:
+            - name: OTEL_SERVICE_NAME
+              value: "backend"
+          volumeMounts:
+            - name: loki-config
+              mountPath: /etc/loki
+      volumes:
+        - name: loki-config
+          configMap:
+            name: loki-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    app: backend
+  type: ClusterIP
+  ports:
+    - name: "http"
+      protocol: TCP
+      port: 3100
+      targetPort: 3100
+    - name: "gossip"
+      protocol: TCP
+      port: 7946
+      targetPort: 7946

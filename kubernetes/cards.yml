@@ -15,14 +15,22 @@ spec:
                 app: cards
         spec:
             initContainers:
+              - name: wait-for-cardsdb
+                image: busybox
+                command: [ 'sh', '-c', 'until nc -z cardsdb 3306; do sleep 5; done' ]
+
               - name: wait-for-configserver
                 image: busybox
                 command: [ 'sh', '-c', 'until nc -z configserver 8071; do sleep 5; done' ]
+
+              - name: wait-for-eurekaserver
+                image: busybox
+                command: [ 'sh', '-c', 'until nc -z eurekaserver 8070; do sleep 5; done' ]
             containers:
                 - name: cards
                   image: dragipan/cards:1.0.0
                   ports:
-                    - containerPort: 8072
+                    - containerPort: 9090
                   env:
                     - name: SPRING_CONFIG_IMPORT
                       valueFrom:

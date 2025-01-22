@@ -15,9 +15,18 @@ spec:
                 app: accounts
         spec:
             initContainers:
+              - name: wait-for-accountsdb
+                image: busybox
+                command: [ 'sh', '-c', 'until nc -z accountsdb 3306; do sleep 5; done' ]
+
               - name: wait-for-configserver
                 image: busybox
                 command: [ 'sh', '-c', 'until nc -z configserver 8071; do sleep 5; done' ]
+
+              - name: wait-for-eurekaserver
+                image: busybox
+                command: [ 'sh', '-c', 'until nc -z eurekaserver 8070; do sleep 5; done' ]
+
             containers:
                 - name: accounts
                   image: dragipan/accounts:1.0.0
