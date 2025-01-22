@@ -18,10 +18,12 @@ spec:
         - name: alloy
           image: grafana/alloy:v1.5.1
           command:
-            - run
-            - --server.http.listen-addr=0.0.0.0:12345
-            - --storage.path=/var/lib/alloy/data
-            - /etc/alloy/config.alloy
+            - "/usr/bin/alloy"
+          args:
+            - "run"
+            - "--server.http.listen-addr=0.0.0.0:12345"
+            - "--storage.path=/var/lib/alloy/data"
+            - "/etc/alloy/config.alloy"
           ports:
             - containerPort: 12345
           volumeMounts:

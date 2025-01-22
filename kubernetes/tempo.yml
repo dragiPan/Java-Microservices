@@ -23,13 +23,23 @@ spec:
             - containerPort: 4317
           volumeMounts:
             - name: tempo-config
-              mountPath: /etc/tempo
-            - name: tempo-data
-              mountPath: /tempo
+              mountPath: /etc/tempo/config.yml
+              subPath: tempo.yml
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3100
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
       volumes:
         - name: tempo-config
           configMap:
             name: tempo-config
+            items:
+              - key: tempo.yml
+                path: config.yml
         - name: tempo-data
           persistentVolumeClaim:
             claimName: tempo-pvc

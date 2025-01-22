@@ -28,8 +28,41 @@ spec:
             - name: gossip
               containerPort: 7946
           env:
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: microservice-configmap
+                  key: OTEL_EXPORTER_OTLP_ENDPOINT
+
             - name: OTEL_SERVICE_NAME
-              value: "backend"
+              value: "backend-service"
+
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              valueFrom:
+                configMapKeyRef:
+                  name: microservice-configmap
+                  key: OTEL_RESOURCE_ATTRIBUTES
+
+            - name: OTEL_METRICS_EXPORTER
+              valueFrom:
+                configMapKeyRef:
+                  name: microservice-configmap
+                  key: OTEL_METRICS_EXPORTER
+
+            - name: OTEL_LOGS_EXPORTER
+              valueFrom:
+                configMapKeyRef:
+                  name: microservice-configmap
+                  key: OTEL_LOGS_EXPORTER
+
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3100
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
           volumeMounts:
             - name: loki-config
               mountPath: /etc/loki

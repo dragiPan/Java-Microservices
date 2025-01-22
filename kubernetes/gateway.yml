@@ -15,12 +15,12 @@ spec:
         app: gateway
     spec:
       initContainers:
-        - name: wait-for-read
+        - name: wait-for-loki-read
           image: busybox
-          command: ['sh', '-c', 'until nc -z read 3100; do sleep 5; done']
-        - name: wait-for-write
+          command: ['sh', '-c', 'until nc -z loki-read 3100; do sleep 5; done']
+        - name: wait-for-loki-write
           image: busybox
-          command: ['sh', '-c', 'until nc -z write 3100; do sleep 5; done']
+          command: ['sh', '-c', 'until nc -z loki-write 3100; do sleep 5; done']
       containers:
         - name: gateway
           image: nginx:1.25.3
@@ -38,9 +38,36 @@ spec:
               port: 3100
             initialDelaySeconds: 10
             periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
           env:
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: microservice-configmap
+                  key: OTEL_EXPORTER_OTLP_ENDPOINT
+
             - name: OTEL_SERVICE_NAME
-              value: "gateway"
+              value: "gateway-service"
+
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              valueFrom:
+                configMapKeyRef:
+                  name: microservice-configmap
+                  key: OTEL_RESOURCE_ATTRIBUTES
+
+            - name: OTEL_METRICS_EXPORTER
+              valueFrom:
+                configMapKeyRef:
+                  name: microservice-configmap
+                  key: OTEL_METRICS_EXPORTER
+
+            - name: OTEL_LOGS_EXPORTER
+              valueFrom:
+                configMapKeyRef:
+                  name: microservice-configmap
+                  key: OTEL_LOGS_EXPORTER
+
       volumes:
         - name: nginx-config
           configMap:
