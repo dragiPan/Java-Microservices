@@ -21,6 +21,10 @@ data:
   SPRING_RABBITMQ_PORT: "5672"
   SPRING_RABBITMQ_USERNAME: "guest"
   SPRING_RABBITMQ_PASSWORD: "guest"
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://tempo:4317"
+  OTEL_RESOURCE_ATTRIBUTES: "service.name=${OTEL_SERVICE_NAME},deployment.environment=prod"
+  OTEL_METRICS_EXPORTER: "otlp"
+  OTEL_LOGS_EXPORTER: "otlp"
 ---
 apiVersion: v1
 kind: ConfigMap

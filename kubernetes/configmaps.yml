@@ -131,7 +131,10 @@ data:
       http_listen_port: 3100
 
     memberlist:
-      join_members: ["read", "write", "backend"]
+      join_members:
+        - "loki-read.default.svc.cluster.local"
+        - "loki-write.default.svc.cluster.local"
+        - "backend.default.svc.cluster.local"
       dead_node_reclaim_time: 30s
       gossip_to_dead_nodes_time: 15s
       left_ingesters_timeout: 30s

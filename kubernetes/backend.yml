@@ -14,10 +14,6 @@ spec:
       labels:
         app: backend
     spec:
-      initContainers:
-        - name: wait-for-gateway
-          image: busybox
-          command: ['sh', '-c', 'until nc -z gateway 3100; do sleep 5; done']
       containers:
         - name: backend
           image: grafana/loki:3.1.0
