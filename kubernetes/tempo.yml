@@ -24,7 +24,7 @@ spec:
           volumeMounts:
             - name: tempo-config
               mountPath: /etc/tempo/config.yml
-              subPath: tempo.yml
+              subPath: config.yml
           readinessProbe:
             httpGet:
               path: /ready

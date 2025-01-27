@@ -15,7 +15,7 @@ data:
   KEYCLOAK_ADMIN: "admin"
   KEYCLOAK_ADMIN_PASSWORD: "admin"
   SPRING_DATASOURCE_USERNAME: "root"
-  SPRING_DATASOURCE_PASSWORD: "password"
+  SPRING_DATASOURCE_PASSWORD: "root"
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: "com.mysql.jdbc.Driver"
   SPRING_RABBITMQ_HOST: "rabbitmq"
   SPRING_RABBITMQ_PORT: "5672"
@@ -58,7 +58,7 @@ data:
       trace:
         backend: s3
         s3:
-          endpoint: minio:9000
+          endpoint: minio.default.svc.cluster.local:9000
           access_key: loki
           secret_key: supersecret
           bucket: tempo-traces
@@ -158,7 +158,7 @@ data:
       compactor_address: http://backend:3100
       storage:
         s3:
-          endpoint: minio:9000
+          endpoint: http://minio.default.svc.cluster.local:9000
           insecure: true
           bucketnames: loki-data
           access_key_id: loki
@@ -177,7 +177,7 @@ data:
       storage:
         s3:
           bucketnames: loki-ruler
-          endpoint: minio:9000
+          endpoint: http://minio.default.svc.cluster.local:9000
           insecure: true
           access_key_id: loki
           secret_access_key: supersecret
