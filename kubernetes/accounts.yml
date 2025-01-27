@@ -33,8 +33,35 @@ spec:
                   ports:
                     - containerPort: 8080
                   env:
-                    - name: SPRING_APPLICATION_JSON
-                      value: '{"logging.level.root":"DEBUG"}'
+                    - name: GATEWAYSERVER_APPLICATION_NAME
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: GATEWAYSERVER_APPLICATION_NAME
+
+                    - name: SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_ENABLED
+                      value: "true"
+
+                    - name: SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_LOWERCASE_SERVICEID
+                      value: "true"
+
+                    - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+                    - name: EUREKA_CLIENT_REGISTER_WITH_EUREKA
+
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: EUREKA_CLIENT_REGISTER_WITH_EUREKA
+                    - name: EUREKA_CLIENT_FETCH_REGISTRY
+
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: EUREKA_CLIENT_FETCH_REGISTRY
 
                     - name: OTEL_EXPORTER_OTLP_ENDPOINT
                       valueFrom:
@@ -68,23 +95,39 @@ spec:
                         configMapKeyRef:
                             name: microservice-configmap
                             key: SPRING_CONFIG_IMPORT
+
                     -  name: SPRING_APPLICATION_NAME
                        valueFrom:
                          configMapKeyRef:
                             name: microservice-configmap
                             key: ACCOUNTS_APPLICATION_NAME
+
                     - name: SPRING_DATASOURCE_URL
                       value: jdbc:mysql://accountsdb:3306/accountsdb
+
                     - name: SPRING_DATASOURCE_USERNAME
                       valueFrom:
                         configMapKeyRef:
                             name: microservice-configmap
                             key: SPRING_DATASOURCE_USERNAME
+
                     - name: SPRING_DATASOURCE_PASSWORD
                       valueFrom:
                         configMapKeyRef:
                             name: microservice-configmap
                             key: SPRING_DATASOURCE_PASSWORD
+
+                    - name: SPRING_SQL_INIT_MODE
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: SPRING_SQL_INIT_MODE
+
+                    - name: SPRING_SQL_INIT_SCHEMA_LOCATIONS
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: SPRING_SQL_INIT_SCHEMA_LOCATIONS
 
                   readinessProbe:
                     httpGet:

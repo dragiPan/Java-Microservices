@@ -26,11 +26,13 @@ spec:
           volumeMounts:
             - name: mysql-data
               mountPath: /mysql
+            - name: init-sql
+              mountPath: /docker-entrypoint-initdb.d
       volumes:
         - name: mysql-data
           persistentVolumeClaim:
             claimName: accountsdb-pvc
-
+        - name: init-sql
 
 ---
 apiVersion: v1
@@ -42,6 +44,11 @@ spec:
     app: accountsdb
   type: ClusterIP
   ports:
-    - protocol: TCP
+    - name: mysql-port
+      protocol: TCP
       port: 3306
+      targetPort: 3306
+    - name: external-port
+      protocol: TCP
+      port: 3333
       targetPort: 3306

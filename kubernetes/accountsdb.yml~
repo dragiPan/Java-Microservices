@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: loansdb
+  name: accountsdb
 spec:
-  serviceName: "loansdb"
+  serviceName: "accountsdb"
   replicas: 1
   selector:
     matchLabels:
-      app: loansdb
+      app: accountsdb
   template:
     metadata:
       labels:
-        app: loansdb
+        app: accountsdb
     spec:
       containers:
         - name: mysql
@@ -20,7 +20,7 @@ spec:
             - containerPort: 3306
           env:
             - name: MYSQL_DATABASE
-              value: "loansdb"
+              value: "accountsdb"
             - name: MYSQL_ROOT_PASSWORD
               value: "root"
           volumeMounts:
@@ -31,19 +31,19 @@ spec:
       volumes:
         - name: mysql-data
           persistentVolumeClaim:
-            claimName: loansdb-pvc
+            claimName: accountsdb-pvc
         - name: init-sql
           hostPath:
-            path: "C:\\Users\\DPantovic\\OneDrive - DXC Production\\Documents\\JAVA\\Microservice\\Java Microservices\\loans\\src\\main\\resources\\schema.sql"
+            path: "C:\\Users\\DPantovic\\OneDrive - DXC Production\\Documents\\JAVA\\Microservice\\Java Microservices\\accounts\\src\\main\\resources\\schema.sql"
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: loansdb
+  name: accountsdb
 spec:
   selector:
-    app: loansdb
+    app: accountsdb
   type: ClusterIP
   ports:
     - name: mysql-port
@@ -52,5 +52,5 @@ spec:
       targetPort: 3306
     - name: external-port
       protocol: TCP
-      port: 3334
+      port: 3333
       targetPort: 3306

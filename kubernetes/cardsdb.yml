@@ -26,10 +26,16 @@ spec:
           volumeMounts:
             - name: mysql-data
               mountPath: /mysql
+            - name: init-sql
+              mountPath: /docker-entrypoint-initdb.d
       volumes:
         - name: mysql-data
           persistentVolumeClaim:
             claimName: cardsdb-pvc
+        - name: init-sql
+          hostPath:
+            path: "C:\\Users\\DPantovic\\OneDrive - DXC Production\\Documents\\JAVA\\Microservice\\Java Microservices\\cards\\src\\main\\resources\\schema.sql"
+
 ---
 apiVersion: v1
 kind: Service
@@ -40,6 +46,11 @@ spec:
     app: cardsdb
   type: ClusterIP
   ports:
-    - protocol: TCP
+    - name: mysql-port
+      protocol: TCP
       port: 3306
+      targetPort: 3306
+    - name: external-port
+      protocol: TCP
+      port: 3335
       targetPort: 3306

@@ -37,6 +37,24 @@ spec:
                   ports:
                     - containerPort: 8072
                   env:
+                    - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+
+                    - name: EUREKA_CLIENT_REGISTER_WITH_EUREKA
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: EUREKA_CLIENT_REGISTER_WITH_EUREKA
+
+                    - name: EUREKA_CLIENT_FETCH_REGISTRY
+                      valueFrom:
+                        configMapKeyRef:
+                          name: microservice-configmap
+                          key: EUREKA_CLIENT_FETCH_REGISTRY
+
                     - name: SPRING_CONFIG_IMPORT
                       valueFrom:
                         configMapKeyRef:
